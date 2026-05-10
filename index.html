@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Abuela 🌻</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --oro:#8B6914;--oro2:#C49A2A;--oro-claro:#E8C96A;--oro-palido:#F7EFD0;
+  --sepia:#5C3D1E;--sepia-claro:#A07850;--crema:#FAF5E4;--crema2:#F2E8C8;
+  --verde:#4A5C3A;--verde-s:#7A9060;--tierra:#7A4F2A;
+  --oscuro:#1C1008;--medio:#6B4C2A;--suave:#E0CEAA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lora',serif;background:var(--crema);color:var(--oscuro);overflow-x:hidden;}
+ 
+/* NOISE TEXTURE overlay */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:0.6;}
+ 
+/* LOADING */
+#loading{position:fixed;inset:0;z-index:9999;background:var(--oscuro);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s ease;}
+.load-ornament{font-size:2.5rem;animation:spinIn 1.5s ease forwards;opacity:0;}
+.load-ornament svg{fill:var(--oro-claro);}
+@keyframes spinIn{0%{opacity:0;transform:rotate(-90deg) scale(0.5);}100%{opacity:1;transform:rotate(0deg) scale(1);}}
+#loading p{font-family:'Petit Formal Script',cursive;font-size:1.8rem;color:var(--oro-claro);opacity:0;animation:fadeIn 1.5s 1s forwards;margin-top:1.2rem;}
+#loading small{margin-top:0.8rem;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--sepia-claro);opacity:0;animation:fadeIn 1s 1.8s forwards;}
+@keyframes fadeIn{to{opacity:1;}}
+ 
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;background:var(--oscuro);padding:3rem 2rem;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 40%, #2A1A06 0%, var(--oscuro) 100%);z-index:0;}
+.hero-frame{position:absolute;inset:2.5rem;border:1px solid rgba(196,154,42,0.25);pointer-events:none;z-index:1;}
+.hero-frame::before,.hero-frame::after{content:'✦';position:absolute;font-size:1.2rem;color:var(--oro-claro);opacity:0.5;}
+.hero-frame::before{top:-0.7rem;left:50%;transform:translateX(-50%);}
+.hero-frame::after{bottom:-0.7rem;left:50%;transform:translateX(-50%);}
+.corner{position:absolute;width:28px;height:28px;border-color:rgba(196,154,42,0.4);border-style:solid;}
+.corner-tl{top:-1px;left:-1px;border-width:2px 0 0 2px;}
+.corner-tr{top:-1px;right:-1px;border-width:2px 2px 0 0;}
+.corner-bl{bottom:-1px;left:-1px;border-width:0 0 2px 2px;}
+.corner-br{bottom:-1px;right:-1px;border-width:0 2px 2px 0;}
+#hero canvas{position:absolute;inset:0;pointer-events:none;z-index:1;}
+.hero-content{position:relative;z-index:2;}
+.hero-pre{font-size:0.65rem;letter-spacing:0.55em;text-transform:uppercase;color:var(--oro2);opacity:0;animation:fadeUp 1s 2.6s forwards;margin-bottom:1.5rem;}
+.hero-sunflower{font-size:3rem;opacity:0;animation:fadeUp 1s 2.2s forwards;display:block;margin-bottom:0.8rem;filter:drop-shadow(0 0 20px rgba(196,154,42,0.4));}
+#hero h1{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,13vw,10rem);font-weight:400;line-height:0.9;color:var(--crema);opacity:0;animation:fadeUp 1.2s 2.8s forwards;}
+#hero h1 span{display:block;font-style:italic;color:var(--oro-claro);font-size:0.45em;letter-spacing:0.05em;margin-bottom:0.5rem;}
+.hero-sub{margin-top:1.5rem;font-family:'Lora',serif;font-style:italic;font-size:1rem;color:rgba(232,201,106,0.7);opacity:0;animation:fadeUp 1s 3.2s forwards;}
+.hero-divider{margin:2rem auto 0;display:flex;align-items:center;gap:1rem;opacity:0;animation:fadeUp 1s 3.5s forwards;}
+.hero-divider::before,.hero-divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(196,154,42,0.4));}
+.hero-divider::after{background:linear-gradient(to left,transparent,rgba(196,154,42,0.4));}
+.hero-divider span{font-size:0.8rem;color:var(--oro2);letter-spacing:0.3em;text-transform:uppercase;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+ 
+/* ORNAMENT DIVIDER */
+.ornament-div{display:flex;align-items:center;gap:1.5rem;padding:3rem 2rem;max-width:820px;margin:0 auto;}
+.ornament-div::before,.ornament-div::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--suave));}
+.ornament-div::after{background:linear-gradient(to left,transparent,var(--suave));}
+.ornament-div span{color:var(--oro);font-size:1.2rem;letter-spacing:0.4em;}
+ 
+/* SECTIONS */
+.section-wrap{max-width:820px;margin:0 auto;padding:5rem 2rem;}
+.s-eyebrow{font-size:0.62rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--sepia-claro);margin-bottom:1rem;}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:400;line-height:1.2;color:var(--oscuro);margin-bottom:2.5rem;}
+.s-title em{font-style:italic;color:var(--oro);}
+ 
+/* CARTA */
+#carta{background:var(--crema);}
+.carta-paper{position:relative;padding:4rem 3.5rem;background:white;border:1px solid var(--suave);}
+.carta-paper::before{content:'';position:absolute;inset:10px;border:1px solid rgba(139,105,20,0.12);pointer-events:none;}
+.carta-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:12rem;opacity:0.025;color:var(--oro);pointer-events:none;font-family:'Playfair Display',serif;font-style:italic;}
+.carta-body{font-family:'Lora',serif;font-size:1.1rem;line-height:2;color:var(--oscuro);position:relative;z-index:1;}
+.carta-body p{margin-bottom:1.6rem;}
+.carta-body p:last-child{margin-bottom:0;}
+.carta-firma{margin-top:3rem;text-align:right;font-family:'Petit Formal Script',cursive;font-size:2rem;color:var(--oro);position:relative;z-index:1;}
+ 
+/* GALERÍA DE VIRTUDES */
+#virtudes{background:var(--crema2);padding:6rem 2rem;}
+.virtudes-wrap{max-width:820px;margin:0 auto;}
+.virtudes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5px;background:var(--suave);}
+.virtud-card{background:var(--crema);padding:2.2rem;display:flex;flex-direction:column;gap:0.8rem;opacity:0;transform:translateY(16px);transition:opacity 0.6s,transform 0.6s;}
+.virtud-card.visible{opacity:1;transform:translateY(0);}
+.virtud-card:hover{background:white;}
+.virtud-icon{font-size:1.8rem;line-height:1;}
+.virtud-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500;color:var(--oscuro);}
+.virtud-desc{font-size:0.9rem;color:var(--medio);line-height:1.7;}
+ 
+/* SABIDURÍA */
+#sabiduria{background:var(--sepia);padding:8rem 2rem;}
+.sab-wrap{max-width:680px;margin:0 auto;text-align:center;}
+.sab-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:400;color:var(--crema);margin-bottom:3rem;}
+.sab-title em{font-style:italic;color:var(--oro-claro);}
+.sab-list{display:flex;flex-direction:column;gap:3rem;}
+.sab-item{opacity:0;transform:translateY(20px);transition:opacity 0.7s,transform 0.7s;}
+.sab-item.visible{opacity:1;transform:translateY(0);}
+.sab-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--crema2);line-height:1.7;margin-bottom:0.8rem;}
+.sab-attr{font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--sepia-claro);}
+.sab-ornament{color:var(--oro);font-size:1.8rem;opacity:0.5;display:block;margin-bottom:0.5rem;}
+ 
+/* RECETARIO */
+#recetario{background:var(--crema);}
+.recetas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;}
+.receta-card{border:1px solid var(--suave);padding:1.8rem;position:relative;opacity:0;transform:scale(0.97);transition:opacity 0.5s,transform 0.5s;}
+.receta-card.visible{opacity:1;transform:scale(1);}
+.receta-card:hover{border-color:var(--oro);background:white;}
+.receta-num{font-family:'Playfair Display',serif;font-size:3.5rem;color:var(--suave);line-height:1;font-weight:700;position:absolute;top:1rem;right:1.2rem;}
+.receta-emoji{font-size:1.6rem;margin-bottom:0.7rem;}
+.receta-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--oscuro);margin-bottom:0.4rem;}
+.receta-desc{font-size:0.85rem;color:var(--medio);line-height:1.6;}
+ 
+/* ÁRBOL */
+#arbol{background:var(--verde);padding:7rem 2rem;text-align:center;}
+.arbol-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;color:var(--crema);margin-bottom:0.5rem;}
+.arbol-title em{font-style:italic;color:var(--oro-claro);}
+.arbol-sub{font-style:italic;color:rgba(232,201,106,0.6);font-size:0.9rem;margin-bottom:3rem;}
+.arbol-wrap{max-width:600px;margin:0 auto;}
+.arbol-raiz{display:flex;flex-direction:column;align-items:center;gap:0;}
+.arbol-node{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);padding:0.9rem 1.8rem;font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--crema);min-width:180px;transition:background 0.2s;}
+.arbol-node:hover{background:rgba(255,255,255,0.15);}
+.arbol-node.root{background:rgba(196,154,42,0.2);border-color:var(--oro2);font-size:1.15rem;font-weight:500;}
+.arbol-connector{width:1px;height:32px;background:rgba(255,255,255,0.2);margin:0 auto;}
+.arbol-row{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+.arbol-branch{display:flex;flex-direction:column;align-items:center;}
+.add-familia{margin-top:2rem;display:flex;gap:0.5rem;max-width:400px;margin-left:auto;margin-right:auto;}
+.add-familia input{flex:1;padding:0.6rem 1rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:var(--crema);font-family:'Lora',serif;font-size:0.9rem;outline:none;}
+.add-familia input::placeholder{color:rgba(232,201,106,0.4);}
+.add-familia button{padding:0.6rem 1.2rem;background:var(--oro);color:var(--oscuro);border:none;font-family:'Lora',serif;font-size:0.85rem;cursor:pointer;font-weight:500;}
+ 
+/* POEMA */
+#poema{background:var(--crema2);padding:7rem 2rem;}
+.poema-wrap{max-width:580px;margin:0 auto;}
+.poema-inner{position:relative;padding:4rem 3rem;background:var(--crema);}
+.poema-inner::before,.poema-inner::after{content:'';position:absolute;background:var(--oro);opacity:0.2;}
+.poema-inner::before{top:0;left:2rem;width:60px;height:3px;}
+.poema-inner::after{bottom:0;right:2rem;width:60px;height:3px;}
+.poema-text{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;line-height:2.1;color:var(--oscuro);}
+.verso{display:block;}
+.estrofa{display:block;margin-bottom:2rem;}
+.poema-firma{margin-top:2rem;text-align:right;font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--sepia-claro);}
+ 
+/* HOMENAJE */
+#homenaje{background:var(--oscuro);padding:7rem 2rem;}
+.hom-wrap{max-width:820px;margin:0 auto;}
+.hom-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;color:var(--crema);margin-bottom:0.5rem;}
+.hom-title em{font-style:italic;color:var(--oro-claro);}
+.hom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,0.06);margin-top:2.5rem;}
+.hom-card{background:var(--oscuro);padding:2rem;opacity:0;transform:translateY(16px);transition:opacity 0.6s,transform 0.6s;}
+.hom-card.visible{opacity:1;transform:translateY(0);}
+.hom-card:hover{background:#241308;}
+.hom-decada{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--oro);margin-bottom:0.6rem;}
+.hom-evento{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--crema);margin-bottom:0.5rem;}
+.hom-desc{font-size:0.85rem;color:var(--sepia-claro);line-height:1.6;}
+ 
+/* MENSAJES */
+#mensajes{background:var(--crema);}
+.msg-list{display:flex;flex-direction:column;gap:0;}
+.msg-item{padding:2rem 0;border-bottom:1px solid var(--suave);display:grid;grid-template-columns:80px 1fr;gap:1.5rem;align-items:start;opacity:0;transform:translateX(-16px);transition:opacity 0.6s,transform 0.6s;}
+.msg-item.visible{opacity:1;transform:translateX(0);}
+.msg-inicial{font-family:'Playfair Display',serif;font-style:italic;font-size:2.5rem;color:var(--suave);line-height:1;text-align:center;padding-top:0.3rem;}
+.msg-autor{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--oro);margin-bottom:0.5rem;}
+.msg-texto{font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--oscuro);line-height:1.75;}
+.add-msg{margin-top:2rem;padding:2rem;background:var(--crema2);display:flex;flex-direction:column;gap:0.8rem;}
+.add-msg input,.add-msg textarea{padding:0.75rem 1rem;border:1px solid var(--suave);font-family:'Lora',serif;font-size:0.95rem;color:var(--oscuro);background:white;outline:none;resize:vertical;transition:border-color 0.2s;}
+.add-msg input:focus,.add-msg textarea:focus{border-color:var(--oro);}
+.btn-g{padding:0.75rem 2rem;background:var(--sepia);color:var(--crema2);border:none;font-family:'Lora',serif;font-size:0.9rem;cursor:pointer;letter-spacing:0.05em;transition:background 0.2s;}
+.btn-g:hover{background:var(--oscuro);}
+ 
+/* DECÁLOGO */
+#decalogo{background:var(--crema2);padding:7rem 2rem;}
+.dec-wrap{max-width:700px;margin:0 auto;}
+.dec-list{display:flex;flex-direction:column;gap:0;}
+.dec-item{display:grid;grid-template-columns:60px 1fr;gap:1.5rem;padding:1.8rem 0;border-bottom:1px solid var(--suave);align-items:start;opacity:0;transform:translateY(14px);transition:opacity 0.5s,transform 0.5s;}
+.dec-item.visible{opacity:1;transform:translateY(0);}
+.dec-num{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--suave);font-weight:700;line-height:1;text-align:right;}
+.dec-titulo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--oscuro);margin-bottom:0.35rem;}
+.dec-texto{font-size:0.88rem;color:var(--medio);line-height:1.7;}
+ 
+/* QUIZ */
+#quiz{background:var(--oscuro);padding:7rem 2rem;}
+.quiz-wrap{max-width:640px;margin:0 auto;}
+.quiz-inner{border:1px solid rgba(196,154,42,0.2);padding:2.5rem;}
+.q-eyebrow{font-size:0.62rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--oro);margin-bottom:1.5rem;}
+.q-progress{display:flex;gap:6px;margin-bottom:2rem;}
+.q-pip{height:2px;flex:1;background:rgba(255,255,255,0.1);transition:background 0.3s;}
+.q-pip.done{background:var(--oro);}
+.q-pip.active{background:var(--oro-claro);}
+.q-text{font-family:'Playfair Display',serif;font-style:italic;font-size:1.35rem;line-height:1.5;color:var(--crema);margin-bottom:2rem;}
+.q-opts{display:flex;flex-direction:column;gap:0.6rem;}
+.q-opt{padding:0.85rem 1.2rem;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--crema2);font-family:'Lora',serif;font-size:0.9rem;text-align:left;cursor:pointer;transition:all 0.2s;}
+.q-opt:hover{border-color:var(--oro);background:rgba(196,154,42,0.06);}
+.q-opt.correct{background:rgba(74,92,58,0.3);border-color:#7A9060;color:#B8D088;}
+.q-opt.wrong{background:rgba(160,80,50,0.2);border-color:#A07850;color:#D4A870;}
+.q-result{text-align:center;padding:1rem 0;}
+.q-score-n{font-family:'Playfair Display',serif;font-size:5rem;color:var(--oro-claro);line-height:1;}
+.q-msg{font-family:'Lora',serif;font-style:italic;font-size:1.1rem;color:var(--crema2);margin-top:0.6rem;line-height:1.6;}
+.btn-o-dark{padding:0.7rem 1.8rem;background:transparent;border:1px solid rgba(196,154,42,0.4);color:var(--oro-claro);font-family:'Lora',serif;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:1.5rem;}
+.btn-o-dark:hover{background:rgba(196,154,42,0.1);}
+ 
+/* FINAL */
+#final{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem;background:var(--crema);position:relative;overflow:hidden;}
+#final-canvas{position:absolute;inset:0;pointer-events:none;width:100%;height:100%;}
+.final-frame{position:absolute;inset:3rem;border:1px solid var(--suave);pointer-events:none;}
+.final-pre{font-size:0.65rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--sepia-claro);margin-bottom:2rem;position:relative;z-index:1;}
+#final h2{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);font-weight:400;line-height:1.1;color:var(--oscuro);margin-bottom:2rem;position:relative;z-index:1;}
+#final h2 em{font-style:italic;color:var(--oro);}
+.final-quote{font-family:'Lora',serif;font-style:italic;font-size:1.1rem;color:var(--medio);max-width:480px;line-height:1.85;margin:0 auto 3rem;position:relative;z-index:1;}
+.final-sun{font-size:3.5rem;animation:pulse 3s infinite;position:relative;z-index:1;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+ 
+/* UTILS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s,transform 0.7s;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.hpart{position:fixed;pointer-events:none;animation:fallPart linear forwards;z-index:9998;}
+@keyframes fallPart{0%{opacity:1;transform:translateY(-30px) rotate(0deg);}100%{opacity:0;transform:translateY(105vh) rotate(540deg);}}
+ 
+@media(max-width:600px){
+  .carta-paper{padding:2rem 1.5rem;}
+  .virtudes-grid{grid-template-columns:1fr;}
+  .hom-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+ 
+<div id="loading">
+  <div class="load-ornament">🌻</div>
+  <p>Para mi abuela querida…</p>
+  <small>Con todo el amor del mundo</small>
+</div>
+ 
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="stars-canvas"></canvas>
+  <div class="hero-frame">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-sunflower">🌻</span>
+    <p class="hero-pre">Un homenaje al amor más antiguo y más puro</p>
+    <h1><span>para mi</span>Abuela</h1>
+    <p class="hero-sub">La mujer que lo empezó todo · Feliz Día de las Madres</p>
+    <div class="hero-divider"><span>❧</span></div>
+  </div>
+</div>
+ 
+<!-- CARTA -->
+<section id="carta">
+  <div class="section-wrap">
+    <p class="s-eyebrow">Palabras que llevo dentro</p>
+    <h2 class="s-title">Una carta<br><em>desde el alma</em></h2>
+    <div class="carta-paper fade-in">
+      <div class="carta-watermark">❧</div>
+      <div class="carta-body">
+        <p>Abuela,</p>
+        <p>Hay personas en la vida cuya presencia uno no sabe bien cómo describir. No porque falten palabras, sino porque ninguna parece suficientemente grande. Tú eres una de esas personas.</p>
+        <p>Crecí mirándote con una mezcla de admiración y de misterio. Tú habías vivido cosas que yo apenas podía imaginar. Tenías una historia larga, llena de capítulos que yo solo conocía a pedazos — en tus historias de sobremesa, en los silencios cargados de experiencia, en la manera tranquila en que enfrentabas las cosas que a mí me parecían montañas.</p>
+        <p>Lo que más recuerdo es tu cocina. No el lugar — aunque ese también — sino la forma en que cocinabas: sin prisa, con una seguridad en las manos que solo da el tiempo. Cada plato era una carta de amor sin sobre ni firma. Y lo sabíamos todos.</p>
+        <p>Pero más que eso, recuerdo que siempre tuviste tiempo. Para escuchar. Para contar. Para estar. En un mundo que siempre tiene prisa, tú eras el lugar donde el tiempo se detenía un poco.</p>
+        <p>Hoy quiero que sepas que todo lo que soy lleva algo tuyo adentro. Y que eso, lejos de pesarme, es uno de los regalos más grandes que la vida me ha dado.</p>
+        <p>Gracias, abuela. Por todo lo visible y por todo lo que nunca dijiste pero igual nos diste.</p>
+      </div>
+      <p class="carta-firma">Con amor infinito 🌻</p>
+    </div>
+  </div>
+</section>
+ 
+<div class="ornament-div"><span>✦ ✦ ✦</span></div>
+ 
+<!-- VIRTUDES -->
+<section id="virtudes">
+  <div class="virtudes-wrap">
+    <p class="s-eyebrow" style="text-align:center;">Lo que te hace única</p>
+    <h2 class="s-title" style="text-align:center;">Las virtudes de<br>una mujer <em>extraordinaria</em></h2>
+    <div class="virtudes-grid" id="virtudes-grid"></div>
+  </div>
+</section>
+ 
+<!-- SABIDURÍA -->
+<section id="sabiduria">
+  <div class="sab-wrap">
+    <p class="s-eyebrow" style="color:var(--sepia-claro);margin-bottom:1.5rem;text-align:center;">Lo que nos dejaste</p>
+    <h2 class="sab-title">Sabiduría que<br>nos <em>acompaña</em></h2>
+    <div class="sab-list" id="sab-list"></div>
+  </div>
+</section>
+ 
+<!-- RECETARIO -->
+<section id="recetario">
+  <div class="section-wrap">
+    <p class="s-eyebrow">El sabor del hogar</p>
+    <h2 class="s-title">El <em>recetario</em><br>de tu amor</h2>
+    <p style="font-style:italic;color:var(--medio);margin-bottom:2.5rem;font-size:0.95rem;">Cada plato que preparaste fue una forma de decirnos "aquí estoy, los quiero".</p>
+    <div class="recetas-grid" id="recetas-grid"></div>
+  </div>
+</section>
+ 
+<div class="ornament-div"><span>❦ ❦ ❦</span></div>
+ 
+<!-- ÁRBOL -->
+<section id="arbol">
+  <p class="s-eyebrow" style="color:var(--sepia-claro);margin-bottom:0.5rem;">De tu raíz, todo nació</p>
+  <h2 class="arbol-title">El árbol de<br>nuestra <em>familia</em></h2>
+  <p class="arbol-sub">Tú eres el tronco. Todos crecemos desde ti.</p>
+  <div class="arbol-wrap" id="arbol-wrap"></div>
+</section>
+ 
+<!-- POEMA -->
+<section id="poema">
+  <div class="section-wrap">
+    <p class="s-eyebrow">Escrito con reverencia</p>
+    <h2 class="s-title">Un <em>poema</em><br>para ti</h2>
+    <div class="poema-inner fade-in">
+      <div class="poema-text">
+        <span class="estrofa">
+          <span class="verso">Hay manos que cuentan historias</span>
+          <span class="verso">sin necesidad de palabras,</span>
+          <span class="verso">manos que amasan el pan</span>
+          <span class="verso">y con él, la paciencia de los años.</span>
+        </span>
+        <span class="estrofa">
+          <span class="verso">Tú aprendiste de otras manos,</span>
+          <span class="verso">que aprendieron de otras antes,</span>
+          <span class="verso">y así el amor se fue pasando</span>
+          <span class="verso">como una receta sin papel escrito.</span>
+        </span>
+        <span class="estrofa">
+          <span class="verso">No sé cuántos años tiene</span>
+          <span class="verso">la forma en que nos miras,</span>
+          <span class="verso">pero sé que en esa mirada</span>
+          <span class="verso">cabe todo el tiempo del mundo.</span>
+        </span>
+        <span class="estrofa" style="margin-bottom:0;">
+          <span class="verso">Gracias por ser el principio.</span>
+          <span class="verso">Por ser la voz que todavía</span>
+          <span class="verso">nos dice que todo va a estar bien.</span>
+          <span class="verso">Y por tener razón, siempre.</span>
+        </span>
+      </div>
+      <p class="poema-firma">— Escrito con amor y gratitud</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- HOMENAJE -->
+<section id="homenaje">
+  <div class="hom-wrap">
+    <p class="s-eyebrow" style="color:var(--sepia-claro);">Tu vida, nuestra historia</p>
+    <h2 class="hom-title">Una vida<br><em>bien vivida</em></h2>
+    <div class="hom-grid" id="hom-grid"></div>
+  </div>
+</section>
+ 
+<!-- DECÁLOGO -->
+<section id="decalogo">
+  <div class="dec-wrap">
+    <p class="s-eyebrow">De tu ejemplo aprendí</p>
+    <h2 class="s-title">Las diez cosas que<br>me <em>enseñaste</em></h2>
+    <div class="dec-list" id="dec-list"></div>
+  </div>
+</section>
+ 
+<!-- MENSAJES -->
+<section id="mensajes">
+  <div class="section-wrap">
+    <p class="s-eyebrow">La familia te escribe</p>
+    <h2 class="s-title">Mensajes de<br>quienes te <em>adoramos</em></h2>
+    <div class="msg-list" id="msg-list"></div>
+    <div class="add-msg">
+      <input id="msg-autor" type="text" placeholder="Tu nombre (ej: Tío Carlos, Prima Ana…)">
+      <textarea id="msg-texto" rows="3" placeholder="Escribe tu mensaje para la abuela…"></textarea>
+      <button class="btn-g" style="align-self:flex-end" onclick="agregarMensaje()">Dejar mi mensaje ❧</button>
+    </div>
+  </div>
+</section>
+ 
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="quiz-wrap">
+    <p class="s-eyebrow" style="color:var(--sepia-claro);margin-bottom:0.5rem;">Un juego con cariño</p>
+    <h2 class="hom-title" style="margin-bottom:2rem;">¿Cuánto<br><em>la conoces?</em></h2>
+    <div class="quiz-inner" id="quiz-box">
+      <p class="q-eyebrow" id="q-eyebrow">Pregunta 1 de 6</p>
+      <div class="q-progress" id="q-progress"></div>
+      <p class="q-text" id="q-text"></p>
+      <div class="q-opts" id="q-opts"></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FINAL -->
+<div id="final">
+  <canvas id="final-canvas"></canvas>
+  <div class="final-frame"></div>
+  <p class="final-pre">Y sobre todo</p>
+  <h2>Te amamos,<br><em>abuela.</em></h2>
+  <p class="final-quote">
+    "Una abuela es un poco mamá, un poco maestra<br>
+    y un poco la mejor amiga que el tiempo pudo darnos."<br>
+    <span style="font-size:0.75rem;letter-spacing:0.18em;font-style:normal;color:var(--sepia-claro);">— Con toda la gratitud de nuestra familia</span>
+  </p>
+  <div class="final-sun">🌻</div>
+</div>
+ 
+<script>
+/* LOADING */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loading');
+    l.style.opacity='0';
+    setTimeout(()=>l.remove(),1200);
+  },2800);
+});
+ 
+/* STARS / PARTICLES HERO */
+(function(){
+  const c=document.getElementById('stars-canvas');
+  const ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<80;i++)pts.push({x:Math.random()*2-1,y:Math.random()*2-1,r:0.3+Math.random()*1.2,a:Math.random(),d:Math.random()*Math.PI*2,s:0.003+Math.random()*0.005});
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.d+=p.s;p.a=0.1+0.35*Math.abs(Math.sin(p.d));
+      ctx.globalAlpha=p.a;ctx.fillStyle='#E8C96A';
+      ctx.beginPath();ctx.arc((p.x+1)/2*W,(p.y+1)/2*H,p.r,0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;requestAnimationFrame(loop);
+  }
+  loop();
+})();
+ 
+/* FINAL CANVAS */
+(function(){
+  const c=document.getElementById('final-canvas');
+  const ctx=c.getContext('2d');
+  let W,H;
+  function resize(){W=c.width=c.parentElement.offsetWidth;H=c.height=c.parentElement.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const pts=Array.from({length:30},()=>({x:Math.random(),y:Math.random(),r:1+Math.random()*2,d:Math.random()*Math.PI*2,s:0.005+Math.random()*0.01}));
+  function loop(){
+    if(!W)resize();
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.d+=p.s;p.alpha=0.05+0.1*Math.abs(Math.sin(p.d));ctx.globalAlpha=p.alpha;ctx.fillStyle='#8B6914';ctx.beginPath();ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);ctx.fill();});
+    ctx.globalAlpha=1;requestAnimationFrame(loop);
+  }
+  loop();
+})();
+ 
+/* SCROLL REVEAL */
+function onScroll(){
+  document.querySelectorAll('.virtud-card,.sab-item,.receta-card,.hom-card,.dec-item,.msg-item,.fade-in').forEach(el=>{
+    if(el.getBoundingClientRect().top<innerHeight-50)el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll',onScroll);
+setTimeout(onScroll,500);
+ 
+/* VIRTUDES */
+const virtudes=[
+  {icon:'🌿',title:'Paciencia sin límite',desc:'Nunca la vimos perder la calma. Tenía un ritmo propio que invitaba al mundo a tranquilizarse.'},
+  {icon:'🍳',title:'El don de alimentar',desc:'Cocinaba con algo más que ingredientes. Había amor en cada gesto, en cada plato servido.'},
+  {icon:'📖',title:'La memoria del clan',desc:'Guardaba las historias de todos. Era el archivo vivo de la familia, contadora de lo que no debía olvidarse.'},
+  {icon:'🤝',title:'Generosidad sin cuentas',desc:'Daba sin llevar registro. No calculaba el esfuerzo. Simplemente entregaba lo que tenía.'},
+  {icon:'🌻',title:'Alegría sencilla',desc:'Se alegraba con las cosas pequeñas. Una visita inesperada, un buen café, una tarde de sol.'},
+  {icon:'🧵',title:'La constancia del hilo',desc:'Como quien teje despacio, construyó una familia hilada con cuidado, punto a punto, día a día.'},
+];
+const vg=document.getElementById('virtudes-grid');
+virtudes.forEach((v,i)=>{
+  const d=document.createElement('div');d.className='virtud-card';d.style.transitionDelay=(i*0.07)+'s';
+  d.innerHTML=`<span class="virtud-icon">${v.icon}</span><p class="virtud-title">${v.title}</p><p class="virtud-desc">${v.desc}</p>`;
+  vg.appendChild(d);
+});
+ 
+/* SABIDURÍA */
+const frases=[
+  {q:'El que madruga, no necesita apurarse el resto del día.',a:'Dicha con esa calma que lo decía todo.'},
+  {q:'A la mesa y a la cama, a la primera llamada.',a:'El orden que sostuvo a una familia entera.'},
+  {q:'El amor no se demuestra con palabras bonitas — se demuestra quedándose.',a:'La lección más importante que nos dejó.'},
+  {q:'Cuando no sepas qué hacer, haz lo que te pide el corazón. Casi nunca se equivoca.',a:'Consejo guardado para los momentos difíciles.'},
+];
+const sl=document.getElementById('sab-list');
+frases.forEach((f,i)=>{
+  const d=document.createElement('div');d.className='sab-item';d.style.transitionDelay=(i*0.12)+'s';
+  d.innerHTML=`<span class="sab-ornament">❧</span><p class="sab-quote">"${f.q}"</p><p class="sab-attr">${f.a}</p>`;
+  sl.appendChild(d);
+});
+ 
+/* RECETARIO */
+const recetas=[
+  {emoji:'🍲',name:'El puchero de los domingos',desc:'El olor que nos anunciaba que era día de reunión familiar.'},
+  {emoji:'🥧',name:'El pastel de siempre',desc:'Sin receta escrita. Solo en sus manos y en nuestra memoria.'},
+  {emoji:'☕',name:'El café de las mañanas',desc:'Nunca nadie lo hizo igual. Fuerte, dulce, y con ese tiempo sin prisa.'},
+  {emoji:'🍞',name:'El pan casero',desc:'Caliente, con mantequilla, después de la siesta. Sinónimo de hogar.'},
+  {emoji:'🍮',name:'El flan de los cumpleaños',desc:'La tradición que ningún año podía faltar. Ni uno.'},
+  {emoji:'🫙',name:'Las conservas del verano',desc:'Frascos guardados con amor para el invierno. Como ella guardaba todo.'},
+];
+const rg=document.getElementById('recetas-grid');
+recetas.forEach((r,i)=>{
+  const d=document.createElement('div');d.className='receta-card';d.style.transitionDelay=(i*0.07)+'s';
+  d.innerHTML=`<span class="receta-num">${String(i+1).padStart(2,'0')}</span><span class="receta-emoji">${r.emoji}</span><p class="receta-name">${r.name}</p><p class="receta-desc">${r.desc}</p>`;
+  rg.appendChild(d);
+});
+ 
+/* ÁRBOL */
+const arbolData={
+  root:'La Abuela',
+  hijos:['Mamá / Papá','Tío / Tía','Tío / Tía'],
+  nietos:['Yo','Prima / Primo','Prima / Primo','Prima / Primo'],
+};
+const aw=document.getElementById('arbol-wrap');
+aw.innerHTML=`
+  <div class="arbol-raiz">
+    <div class="arbol-node root">${arbolData.root}</div>
+    <div class="arbol-connector"></div>
+    <div class="arbol-row" id="hijos-row"></div>
+    <div class="arbol-connector"></div>
+    <div class="arbol-row" id="nietos-row"></div>
+  </div>`;
+const hr=document.getElementById('hijos-row');
+arbolData.hijos.forEach(h=>{const d=document.createElement('div');d.className='arbol-branch';d.innerHTML=`<div class="arbol-node">${h}</div>`;hr.appendChild(d);});
+const nr=document.getElementById('nietos-row');
+const nietos=[...arbolData.nietos];
+function renderNietos(){
+  nr.innerHTML='';
+  nietos.forEach(n=>{const d=document.createElement('div');d.className='arbol-branch';d.innerHTML=`<div class="arbol-node" style="font-size:0.85rem;padding:0.6rem 1.2rem;">${n}</div>`;nr.appendChild(d);});
+}
+renderNietos();
+aw.innerHTML+=`<div class="add-familia"><input id="familia-inp" placeholder="Agregar miembro de la familia…" /><button onclick="agregarFamilia()">+ Agregar</button></div>`;
+function agregarFamilia(){
+  const inp=document.getElementById('familia-inp');const v=inp.value.trim();if(!v)return;
+  nietos.push(v);inp.value='';renderNietos();lanzarGirasoles();
+}
+ 
+/* HOMENAJE */
+const decadas=[
+  {decada:'Los inicios',evento:'Una vida que comenzó con valentía',desc:'Creció en tiempos que exigían fuerza. Aprendió a construir lo que necesitaba con lo que tenía.'},
+  {decada:'La juventud',evento:'El amor y la familia',desc:'Eligió bien. Construyó un hogar con paciencia y con propósito, ladrillo a ladrillo.'},
+  {decada:'La madurez',evento:'Madre y pilar de todo',desc:'Cuando los hijos crecieron, ella siguió siendo el centro. El punto al que todos volvemos.'},
+  {decada:'Los años dorados',evento:'La abuela que lo sabe todo',desc:'Con la distancia del tiempo, vio crecer a sus nietos con esa mezcla de orgullo y ternura que solo las abuelas saben dar.'},
+  {decada:'Hoy',evento:'Nuestro mayor tesoro',desc:'Sigue aquí. Sigue siendo el corazón de esta familia. Y eso lo valoramos más que nunca.'},
+];
+const hg=document.getElementById('hom-grid');
+decadas.forEach((d,i)=>{
+  const el=document.createElement('div');el.className='hom-card';el.style.transitionDelay=(i*0.1)+'s';
+  el.innerHTML=`<p class="hom-decada">${d.decada}</p><p class="hom-evento">${d.evento}</p><p class="hom-desc">${d.desc}</p>`;
+  hg.appendChild(el);
+});
+ 
+/* DECÁLOGO */
+const lecciones=[
+  {titulo:'Que el silencio también habla',texto:'A veces su presencia callada decía más que mil palabras.'},
+  {titulo:'Que las manos no mienten',texto:'Lo que se hace con las manos lleva la verdad de quien lo hace.'},
+  {titulo:'Que hay que recibir bien a quien llega',texto:'La mesa siempre lista, la puerta siempre abierta.'},
+  {titulo:'Que los problemas tienen solución',texto:'Nunca la vimos hundirse. Siempre encontraba la manera.'},
+  {titulo:'Que el tiempo es el regalo más valioso',texto:'Nunca tuvo prisa para estar con nosotros.'},
+  {titulo:'Que hay que respetar a los mayores',texto:'Y entender que detrás de cada arruga hay una historia.'},
+  {titulo:'Que la familia se defiende',texto:'A sus hijos y nietos los defendía con una calma que era más poderosa que cualquier grito.'},
+  {titulo:'Que el trabajo dignifica',texto:'Nunca vimos a alguien trabajar con más honra y sin quejarse.'},
+  {titulo:'Que las cosas simples son las más importantes',texto:'Un domingo juntos valía más que cualquier viaje.'},
+  {titulo:'Que el amor no se acaba',texto:'Cada año que pasa, nos da más razones para quererla más.'},
+];
+const dl=document.getElementById('dec-list');
+lecciones.forEach((l,i)=>{
+  const d=document.createElement('div');d.className='dec-item';d.style.transitionDelay=(i*0.06)+'s';
+  d.innerHTML=`<span class="dec-num">${String(i+1).padStart(2,'0')}</span><div><p class="dec-titulo">${l.titulo}</p><p class="dec-texto">${l.texto}</p></div>`;
+  dl.appendChild(d);
+});
+ 
+/* MENSAJES */
+const mensajes=[
+  {autor:'Tu nieto Sebastian',texto:'Abuela, no existe un lugar en el mundo donde me sienta más seguro que a tu lado. Eso no tiene precio.'},
+  {autor:'Toda la familia',texto:'Eres la razón por la que esta familia existe y por la que seguimos unidos. Todo viene de ti.'},
+  {autor:'Miguel',texto:'CambiarTexto'},
+  {autor:'Tu Hija Katherine',texto:'CambiarTexto.'},
+];
+function renderMensajes(){
+  const list=document.getElementById('msg-list');list.innerHTML='';
+  mensajes.forEach((m,i)=>{
+    const inicial=m.autor.charAt(0).toUpperCase();
+    const d=document.createElement('div');d.className='msg-item';d.style.transitionDelay=(i*0.1)+'s';
+    d.innerHTML=`<div class="msg-inicial">${inicial}</div><div><p class="msg-autor">${m.autor}</p><p class="msg-texto">"${m.texto}"</p></div>`;
+    list.appendChild(d);
+  });
+  setTimeout(onScroll,80);
+}
+function agregarMensaje(){
+  const autor=document.getElementById('msg-autor').value.trim()||'Anónimo';
+  const texto=document.getElementById('msg-texto').value.trim();if(!texto)return;
+  mensajes.push({autor,texto});
+  document.getElementById('msg-autor').value='';document.getElementById('msg-texto').value='';
+  renderMensajes();lanzarGirasoles();
+  setTimeout(()=>document.querySelectorAll('.msg-item').forEach(c=>c.classList.add('visible')),200);
+}
+renderMensajes();
+ 
+/* QUIZ */
+const qs=[
+  {q:'¿Cuál es el "idioma" principal de la abuela?',opts:['Los regalos caros','Los gestos de amor y las cosas hechas a mano','Las palabras perfectas','Los mensajes de WhatsApp'],ok:1},
+  {q:'¿Qué hace la abuela cuando alguien llega de visita?',opts:['Pregunta cuánto tiempo se quedan','Ofrece comida aunque no tengas hambre','Revisa el teléfono','Dice que está muy ocupada'],ok:1},
+  {q:'¿Cómo sabe la abuela que algo está listo?',opts:['Con un termómetro de cocina','Con un temporizador','Con la vista y el olfato — sin receta','Leyendo el manual'],ok:2},
+  {q:'¿Cuál es la respuesta de la abuela cuando le preguntas cómo está?',opts:['"Fatal, no me hagas hablar"','"Bien, gracias a Dios, ¿y tú y los tuyos?"','"Más o menos"','"Ocupada, luego te cuento"'],ok:1},
+  {q:'¿Qué guarda la abuela "por si acaso"?',opts:['Solo lo estrictamente necesario','Todo — bolsas, frascos, papeles, cosas que "pueden servir"','Nada, ella es muy organizada','Solo ropa de temporada'],ok:1},
+  {q:'¿Qué es lo más valioso que nos dejó la abuela?',opts:['Objetos materiales','Los valores, la historia y el amor que nos transmitió','Sus consejos de moda','Su colección de series'],ok:1},
+];
+let qI=0,qScore=0,qAnswered=false;
+function renderPips(){
+  const p=document.getElementById('q-progress');p.innerHTML='';
+  qs.forEach((_,i)=>{const d=document.createElement('div');d.className='q-pip'+(i<qI?' done':i===qI?' active':'');p.appendChild(d);});
+}
+function renderQuiz(){
+  if(qI>=qs.length){showResult();return;}
+  qAnswered=false;const p=qs[qI];
+  document.getElementById('q-eyebrow').textContent=`Pregunta ${qI+1} de ${qs.length}`;
+  renderPips();
+  document.getElementById('q-text').textContent=p.q;
+  const o=document.getElementById('q-opts');o.innerHTML='';
+  p.opts.forEach((opt,i)=>{const b=document.createElement('button');b.className='q-opt';b.textContent=opt;b.onclick=()=>choose(i,b);o.appendChild(b);});
+}
+function choose(i,btn){
+  if(qAnswered)return;qAnswered=true;const p=qs[qI];
+  document.querySelectorAll('.q-opt').forEach((b,j)=>{b.disabled=true;if(j===p.ok)b.classList.add('correct');else if(j===i)b.classList.add('wrong');});
+  if(i===p.ok)qScore++;
+  setTimeout(()=>{qI++;renderQuiz();},1300);
+}
+function showResult(){
+  const msgs=['Hay mucho amor por descubrir aún 🌿','¡Ya van conociéndose mejor! 🌻','¡Casi perfectos! Buena memoria 🍂','¡Se conocen muy bien! Un lazo especial 🌸','¡Perfectos! La llevan en el corazón 💛'];
+  const m=msgs[Math.min(Math.floor(qScore/qs.length*msgs.length),msgs.length-1)];
+  document.getElementById('quiz-box').innerHTML=`<div class="q-result"><div class="q-score-n">${qScore}/${qs.length}</div><p class="q-msg">${m}</p><button class="btn-o-dark" onclick="qI=0;qScore=0;renderQuiz()">Jugar de nuevo ❧</button></div>`;
+  lanzarGirasoles();
+}
+renderQuiz();
+ 
+/* GIRASOLES */
+function lanzarGirasoles(){
+  const items=['🌻','✨','🌿','💛','🍂','❧','🌾'];
+  for(let i=0;i<20;i++){
+    const h=document.createElement('div');h.className='hpart';
+    h.textContent=items[Math.floor(Math.random()*items.length)];
+    h.style.cssText=`left:${5+Math.random()*90}vw;top:-2rem;font-size:${0.8+Math.random()*1.2}rem;animation-duration:${2.8+Math.random()*2.5}s;animation-delay:${Math.random()*0.8}s;`;
+    document.body.appendChild(h);setTimeout(()=>h.remove(),7000);
+  }
+}
+setTimeout(lanzarGirasoles,3500);
+</script>
+</body>
+</html>
+ 
